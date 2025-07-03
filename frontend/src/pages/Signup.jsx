@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {API_URL} from "../../utils/api";
 
 const Signup = () => {
   const [signupData, setSignupData] = useState({
@@ -22,7 +23,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.VITE_API_URL}/api/users/signup`, {
+      const response = await fetch(`${API_URL}/api/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
