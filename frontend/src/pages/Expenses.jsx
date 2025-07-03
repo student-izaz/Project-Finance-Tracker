@@ -241,8 +241,8 @@ export default function Expenses() {
       )}
 
       {/* ===== Expenses List ===== */}
-      <div className="space-y-4">
-        {filtered.length === 0 ? (
+<div className="overflow-x-auto space-y-4">
+          {filtered.length === 0 ? (
           <p className="text-gray-500">
             No expenses found for the selected criteria.
           </p>

@@ -27,7 +27,7 @@ export default function Budgets() {
   useEffect(() => {
     fetchBudgets();
     fetchExpenses();
-  }, []);
+  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ export default function Budgets() {
   };
 
   const deleteBudget = async (id) => {
-    await fetch(`http://localhost:5000/api/budgets/${id}`, {
+    await fetch(`${API_URL}/api/budgets/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
