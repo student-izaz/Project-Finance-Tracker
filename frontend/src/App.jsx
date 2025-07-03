@@ -7,6 +7,8 @@ import Budget from "./pages/Budget";
 import Dashboard from "./pages/Dashboard";
 import Start from "./pages/Start";
 import Navbar from "./components/Navbar";
+import { useLocation } from "react-router-dom";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -19,9 +21,14 @@ function App() {
   }, []);
 
   const handleLogin = () => setIsLoggedIn(true);
+   const location = useLocation();
+  const hideNavbarPaths = ["/login", "/signup"];
+
+  const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
   return (
     <div>
-      <Navbar />
+            {!shouldHideNavbar && <Navbar />}
+
       <Routes>
         <Route path="/" element={<Start/>}/>
         <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />

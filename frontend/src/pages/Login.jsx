@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
 
   const navigate = useNavigate();
 
@@ -21,30 +21,31 @@ const Login = () => {
 
   const submitLoginData = async (e) => {
     e.preventDefault();
-    console.log('login data',loginData);
+    console.log("login data", loginData);
 
-      try {
+    try {
       const response = await fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginData)
+        body: JSON.stringify(loginData),
       });
 
       const data = await response.json();
-  
+
       if (response.ok) {
         // Example: save token and redirect
-          localStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.token);
+        toast.success("Login successful!");
         navigate("/dashboard");
       } else {
         console.error("Login failed:", data.message || "Unknown error");
-        alert(data.message || "Login failed");
+        toast.error(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Try again!");
     }
   };
 
