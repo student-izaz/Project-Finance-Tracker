@@ -15,7 +15,6 @@ export default function Dashboard() {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
-    console.log(data)
     setExpenses(data);
   };
 

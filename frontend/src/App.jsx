@@ -6,6 +6,7 @@ import Expenses from "./pages/Expenses";
 import Budget from "./pages/Budget";
 import Dashboard from "./pages/Dashboard";
 import Start from "./pages/Start";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -19,6 +20,8 @@ function App() {
 
   const handleLogin = () => setIsLoggedIn(true);
   return (
+    <div>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Start/>}/>
         <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />
@@ -27,6 +30,7 @@ function App() {
         <Route path="/expenses" element={isLoggedIn ? <Expenses /> : <Navigate to="/login" />} />
         <Route path="/budgets" element={isLoggedIn ? <Budget /> : <Navigate to="/login" />} />
       </Routes>
+    </div>
   );
 }
 
