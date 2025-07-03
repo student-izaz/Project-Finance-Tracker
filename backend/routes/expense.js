@@ -7,10 +7,11 @@ const {
 } = require('../controllers/expenseController');
 
 const router = express.Router();
+const authMiddleware = require("../middleware/authMiddleware")
 
-router.post('/', addExpense);  
-router.get('/', getExpenses);       
-router.delete('/:id', deleteExpense);
-router.put('/:id', updateExpense);
+router.post('/', authMiddleware, addExpense);  
+router.get('/', authMiddleware, getExpenses);       
+router.delete('/:id', authMiddleware, deleteExpense);
+router.put('/:id', authMiddleware, updateExpense);
 
 module.exports = router;

@@ -1,17 +1,10 @@
 const Budget = require('../models/Budget');
 const jwt = require('jsonwebtoken');
 
-// Helper to extract user ID
-const getUserId = (req) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  const decoded = jwt.verify(token, 'secret');
-  return decoded.id;
-};
-
 // Add/Update Budget for Category
 exports.setBudget = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id;
     const { category, limit } = req.body;
 
     let budget = await Budget.findOne({ userId, category });
@@ -33,7 +26,7 @@ exports.setBudget = async (req, res) => {
 // Get All Budgets
 exports.getBudgets = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id;
     const budgets = await Budget.find({ userId });
     res.json(budgets);
   } catch (err) {
@@ -44,7 +37,7 @@ exports.getBudgets = async (req, res) => {
 // Delete Budget
 exports.deleteBudget = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id;
     const { id } = req.params;
 
     const budget = await Budget.findOneAndDelete({ _id: id, userId });

@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.signup = async (req, res) => {
@@ -12,14 +11,16 @@ exports.signup = async (req, res) => {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({ name, email, password: hashedPassword });
+    // Create and save new user (password will be hashed in model pre-save hook)
+    const user = new User({ name, email, password });
     await user.save();
 
-    res.status(201).json({ message: 'User created successfully' });
+    // Generate token
+    const token = user.generateToken();
+
+    res.status(201).json({ message: 'User created successfully', token });
   } catch (error) {
+    console.error('Signup error:', error.message);
     res.status(500).json({ error: 'Signup failed' });
   }
 };
@@ -32,15 +33,16 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ error: 'Invalid email or password' });
 
-    // Compare password
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Compare password using model method
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) return res.status(401).json({ error: 'Invalid email or password' });
 
-    // Create token
-    const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '7d' });
+    // Generate token
+    const token = user.generateToken();
 
-    res.json({ token });
+    res.json({ message: 'Login successful', token });
   } catch (error) {
+    console.error('Login error:', error.message);
     res.status(500).json({ error: 'Login failed' });
   }
 };

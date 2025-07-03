@@ -1,16 +1,9 @@
 const Expense = require('../models/Expense');
 const jwt = require('jsonwebtoken');
 
-// Middleware to get user ID from token
-const getUserId = (req) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  const decoded = jwt.verify(token, 'secret');
-  return decoded.id;
-};
-
 exports.addExpense = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id
     const { amount, category, date, paymentMethod, notes } = req.body;
 
     const expense = new Expense({ userId, amount, category, date, paymentMethod, notes });
@@ -24,7 +17,7 @@ exports.addExpense = async (req, res) => {
 
 exports.getExpenses = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id;
     const expenses = await Expense.find({ userId }).sort({ date: -1 });
     res.json(expenses);
   } catch (err) {
@@ -34,7 +27,7 @@ exports.getExpenses = async (req, res) => {
 
 exports.deleteExpense = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id;
     const { id } = req.params;
 
     const expense = await Expense.findOneAndDelete({ _id: id, userId });
@@ -48,7 +41,7 @@ exports.deleteExpense = async (req, res) => {
 
 exports.updateExpense = async (req, res) => {
   try {
-    const userId = getUserId(req);
+    const userId = req.user._id;
     const { id } = req.params;
     const update = req.body;
 
