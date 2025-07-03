@@ -22,7 +22,7 @@ function App() {
 
   const handleLogin = () => setIsLoggedIn(true);
    const location = useLocation();
-  const hideNavbarPaths = ["/login", "/signup"];
+  const hideNavbarPaths = ["/login", "/signup", "/"];
 
   const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
   return (

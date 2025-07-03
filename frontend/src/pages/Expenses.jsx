@@ -240,7 +240,7 @@ export default function Expenses() {
       )}
 
       {/* ===== Expenses List ===== */}
-      <div className="space-y-4">
+      <div className="p-4 sm:p-6 max-w-6xl mx-auto font-sans">
         {filtered.length === 0 ? (
           <p className="text-gray-500">
             No expenses found for the selected criteria.
