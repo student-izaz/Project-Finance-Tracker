@@ -11,7 +11,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-  origin: "https://project-finance-tracker-two.vercel.app/",
+  origin: "https://project-finance-tracker-two.vercel.app",
   credentials: true
 }));
 app.use(express.json());
