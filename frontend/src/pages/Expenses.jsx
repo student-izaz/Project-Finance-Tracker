@@ -114,7 +114,8 @@ export default function Expenses() {
   }, [search, filterMethod, dateRange, expenses]);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto font-sans">
+      <div className="p-4 sm:p-6 max-w-6xl mx-auto font-sans">
+
       <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
         {editingId ? "✏️ Edit Expense" : "💸 Add Expense"}
       </h2>
@@ -240,7 +241,7 @@ export default function Expenses() {
       )}
 
       {/* ===== Expenses List ===== */}
-      <div className="p-4 sm:p-6 max-w-6xl mx-auto font-sans">
+      <div className="space-y-4">
         {filtered.length === 0 ? (
           <p className="text-gray-500">
             No expenses found for the selected criteria.
