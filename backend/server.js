@@ -10,10 +10,22 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:5173",                      // dev
+  "https://finance-tracker-eight-drab.vercel.app" // production
+];
+
 app.use(cors({
-  origin: "https://finance-tracker-eight-drab.vercel.app",
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true,
 }));
+
 app.use(express.json());
 
 
