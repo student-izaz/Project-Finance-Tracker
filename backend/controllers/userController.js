@@ -46,3 +46,13 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select('-password'); // exclude passwords
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Get All Users Error:', error.message);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+};
