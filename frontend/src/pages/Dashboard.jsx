@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
+
 import {
   PieChart, Pie, Cell, Tooltip,
   LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer
@@ -9,7 +11,7 @@ export default function Dashboard() {
   const token = localStorage.getItem("token");
 
   const fetchExpenses = async () => {
-    const res = await fetch("http://localhost:5000/api/expenses", {
+    const res = await fetch(`${API_URL}/api/expenses`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();

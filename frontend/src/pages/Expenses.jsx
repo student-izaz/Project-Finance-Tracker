@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState([]);
@@ -13,7 +14,7 @@ export default function Expenses() {
   const token = localStorage.getItem("token");
 
   const fetchExpenses = async () => {
-    const res = await fetch("http://localhost:5000/api/expenses", {
+    const res = await fetch(`${API_URL}/api/expenses`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -26,7 +27,7 @@ export default function Expenses() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:5000/api/expenses", {
+    await fetch(`${API_URL}/api/expenses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +40,7 @@ export default function Expenses() {
   };
 
   const deleteExpense = async (id) => {
-    await fetch(`http://localhost:5000/api/expenses/${id}`, {
+    await fetch(`${API_URL}/api/expenses/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
