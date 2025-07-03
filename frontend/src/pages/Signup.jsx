@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {API_URL} from "../../utils/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Signup = () => {
   const [signupData, setSignupData] = useState({
@@ -9,7 +9,7 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   };
