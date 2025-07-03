@@ -53,7 +53,7 @@ export default function Budgets() {
 
   const getSpent = (category) => {
     return expenses
-      .filter(e => e.category.toLowerCase() === category.toLowerCase())
+      .filter(e => e.category === category)
       .reduce((sum, e) => sum + Number(e.amount), 0);
   };
 

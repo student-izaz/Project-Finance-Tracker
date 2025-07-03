@@ -6,7 +6,7 @@ exports.addExpense = async (req, res) => {
     const userId = req.user._id
     const { amount, category, date, paymentMethod, notes } = req.body;
 
-    const expense = new Expense({ userId, amount, category, date, paymentMethod, notes });
+    const expense = new Expense({ userId, amount, category: category.toLowerCase().trim(), date, paymentMethod, notes });
     await expense.save();
 
     res.status(201).json({ message: 'Expense added', expense });

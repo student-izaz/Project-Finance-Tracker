@@ -13,7 +13,7 @@ exports.setBudget = async (req, res) => {
       budget.limit = limit;
       await budget.save();
     } else {
-      budget = new Budget({ userId, category, limit });
+      budget = new Budget({ userId, category: category.toLowerCase().trim(), limit });
       await budget.save();
     }
 
