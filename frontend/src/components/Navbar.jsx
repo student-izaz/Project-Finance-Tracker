@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
+import GenerateReportButton from "../pages/GenerateReport";
 
 export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -93,6 +94,9 @@ export default function Navbar() {
             </li>
           )}
         </ul>
+        <div className="p-6">
+      <GenerateReportButton />
+    </div>
       </div>
     </>
   );

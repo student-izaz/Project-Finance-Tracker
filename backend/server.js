@@ -5,6 +5,8 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/user');
 const expenseRoutes = require('./routes/expense');
 const budgetRoutes = require('./routes/budget');
+const reportRoutes = require('./routes/report');
+
 
 dotenv.config();
 connectDB();
@@ -32,5 +34,7 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/budgets', budgetRoutes);
+app.use('/api/reports', reportRoutes);
+
 
 app.listen(5000, () => console.log('Server running on port 5000'));
