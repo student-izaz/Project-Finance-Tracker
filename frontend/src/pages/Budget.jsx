@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
+import { FaTrash } from "react-icons/fa";
 
 export default function Budgets() {
   const [budgets, setBudgets] = useState([]);
@@ -128,7 +129,7 @@ export default function Budgets() {
                   onClick={() => deleteBudget(budget._id)}
                   className="text-red-500 hover:underline mt-3 md:mt-0"
                 >
-                  Delete
+                  <FaTrash/>
                 </button>
               </div>
             );
