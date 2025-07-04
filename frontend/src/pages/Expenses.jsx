@@ -114,21 +114,20 @@ export default function Expenses() {
   }, [search, filterMethod, dateRange, expenses]);
 
   return (
-      <div className="p-4 sm:p-6 max-w-6xl mx-auto font-sans">
-
-      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto font-sans">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">
         {editingId ? "✏️ Edit Expense" : "💸 Add Expense"}
       </h2>
 
-      {/* ===== Add/Edit Expense Form ===== */}
+      {/* ===== Form ===== */}
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-lg mb-8"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-8"
       >
         <input
           type="number"
           placeholder="Amount (₹)"
-          className="p-3 rounded-xl border"
+          className="p-3 rounded-xl border w-full"
           value={form.amount}
           onChange={(e) => setForm({ ...form, amount: e.target.value })}
           required
@@ -136,14 +135,14 @@ export default function Expenses() {
         <input
           type="text"
           placeholder="Category"
-          className="p-3 rounded-xl border"
+          className="p-3 rounded-xl border w-full"
           value={form.category}
           onChange={(e) => setForm({ ...form, category: e.target.value })}
           required
         />
         <input
           type="date"
-          className="p-3 rounded-xl border"
+          className="p-3 rounded-xl border w-full"
           value={form.date}
           onChange={(e) => setForm({ ...form, date: e.target.value })}
           required
@@ -151,21 +150,23 @@ export default function Expenses() {
         <input
           type="text"
           placeholder="Payment Method"
-          className="p-3 rounded-xl border"
+          className="p-3 rounded-xl border w-full"
           value={form.paymentMethod}
-          onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
+          onChange={(e) =>
+            setForm({ ...form, paymentMethod: e.target.value })
+          }
           required
         />
         <textarea
           placeholder="Notes"
-          className="p-3 rounded-xl border md:col-span-2"
+          className="p-3 rounded-xl border w-full sm:col-span-2"
           value={form.notes}
           onChange={(e) => setForm({ ...form, notes: e.target.value })}
         ></textarea>
-        <div className="md:col-span-2 flex gap-3">
+        <div className="sm:col-span-2 flex gap-3 flex-wrap">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-semibold shadow"
+            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-xl font-semibold shadow"
           >
             {editingId ? "Update Expense" : "Add Expense"}
           </button>
@@ -182,29 +183,29 @@ export default function Expenses() {
                   notes: "",
                 });
               }}
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 px-6 rounded-xl font-semibold"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-5 rounded-xl font-semibold"
             >
-              Cancel Edit
+              Cancel
             </button>
           )}
         </div>
       </form>
 
-      {/* ===== Filter Toggle Button ===== */}
+      {/* ===== Filter Header ===== */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-semibold text-gray-800">📃 Expenses</h2>
+        <h2 className="text-xl font-semibold text-gray-800">📃 Expenses</h2>
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 text-sm text-blue-600 bg-blue-100 px-3 py-2 rounded-md hover:bg-blue-200 transition"
+          className="flex items-center gap-2 text-sm text-blue-600 bg-blue-100 px-3 py-2 rounded-md hover:bg-blue-200"
         >
           <FiFilter />
           Filters
         </button>
       </div>
 
-      {/* ===== Collapsible Filters Section ===== */}
+      {/* ===== Filters ===== */}
       {showFilters && (
-        <div className="bg-white p-4 rounded-xl shadow mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 transition-all duration-300">
+        <div className="bg-white p-4 rounded-xl shadow mb-6 grid grid-cols-1 sm:grid-cols-4 gap-4">
           <input
             type="text"
             placeholder="🔍 Search by category or note"
@@ -235,14 +236,16 @@ export default function Expenses() {
             type="date"
             className="p-2 border rounded"
             value={dateRange.to}
-            onChange={(e) => setDateRange({ ...dateRange, to: e.target.value })}
+            onChange={(e) =>
+              setDateRange({ ...dateRange, to: e.target.value })
+            }
           />
         </div>
       )}
 
-      {/* ===== Expenses List ===== */}
-<div className="overflow-x-auto space-y-4">
-          {filtered.length === 0 ? (
+      {/* ===== Expense Cards ===== */}
+      <div className="space-y-4">
+        {filtered.length === 0 ? (
           <p className="text-gray-500">
             No expenses found for the selected criteria.
           </p>
@@ -250,9 +253,9 @@ export default function Expenses() {
           filtered.map((exp) => (
             <div
               key={exp._id}
-              className="flex justify-between items-start bg-white p-4 rounded-xl shadow border hover:shadow-md transition"
+              className="flex flex-col sm:flex-row sm:justify-between bg-white p-4 rounded-xl shadow border hover:shadow-md transition"
             >
-              <div>
+              <div className="mb-2 sm:mb-0">
                 <div className="text-lg font-semibold text-blue-700">
                   ₹{exp.amount} — {exp.category}
                 </div>
@@ -266,7 +269,7 @@ export default function Expenses() {
                   </div>
                 )}
               </div>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-3 items-center justify-end">
                 <button
                   onClick={() => handleEdit(exp)}
                   className="text-blue-600 hover:text-blue-800 text-lg"
