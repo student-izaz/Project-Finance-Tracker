@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiFilter } from "react-icons/fi";
-// import { FaEdit, FaTrash } from "react-icons/fa";
+const API_URL = import.meta.env.VITE_API_URL;
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState([]);
@@ -22,7 +23,7 @@ export default function Expenses() {
   const token = localStorage.getItem("token");
 
   const fetchExpenses = async () => {
-    const res = await fetch("http://localhost:5000/api/expenses", {
+    const res = await fetch(`${API_URL}/api/expenses`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -38,8 +39,8 @@ export default function Expenses() {
     e.preventDefault();
 
     const url = editingId
-      ? `http://localhost:5000/api/expenses/${editingId}`
-      : "http://localhost:5000/api/expenses";
+      ? `${API_URL}/api/expenses/${editingId}`
+      : `${API_URL}/api/expenses`;
 
     const method = editingId ? "PUT" : "POST";
 
@@ -64,7 +65,7 @@ export default function Expenses() {
   };
 
   const deleteExpense = async (id) => {
-    await fetch(`http://localhost:5000/api/expenses/${id}`, {
+    await fetch(`${API_URL}/api/expenses/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -269,7 +270,7 @@ export default function Expenses() {
                   </div>
                 )}
               </div>
-              {/* <div className="flex gap-3 items-center justify-end">
+              <div className="flex gap-3 items-center justify-end">
                 <button
                   onClick={() => handleEdit(exp)}
                   className="text-blue-600 hover:text-blue-800 text-lg"
@@ -284,7 +285,7 @@ export default function Expenses() {
                 >
                   <FaTrash />
                 </button>
-              </div> */}
+              </div>
             </div>
           ))
         )}
