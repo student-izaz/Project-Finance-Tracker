@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiFilter } from "react-icons/fi";
-import { FaEdit, FaTrash } from "react-icons/fa";
+// import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState([]);
@@ -269,7 +269,7 @@ export default function Expenses() {
                   </div>
                 )}
               </div>
-              <div className="flex gap-3 items-center justify-end">
+              {/* <div className="flex gap-3 items-center justify-end">
                 <button
                   onClick={() => handleEdit(exp)}
                   className="text-blue-600 hover:text-blue-800 text-lg"
@@ -284,7 +284,7 @@ export default function Expenses() {
                 >
                   <FaTrash />
                 </button>
-              </div>
+              </div> */}
             </div>
           ))
         )}
