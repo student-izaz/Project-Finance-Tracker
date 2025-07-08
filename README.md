@@ -137,6 +137,14 @@ Password: 12345
 
 Use those to log in.
 
+backend/.env
+PORT=5000
+MONGO_URI=mongodb+srv://izaz:837690@cluster0.yma94.mongodb.net/financetrackerDB
+JWT_SECRET=finance-tracker-secret-key
+
+fronten/.env
+VITE_API_URL=https://project-finance-tracker-fgid.onrender.com
+
 🚀 1. Backend (Node.js + Express) Deployment using Render
  Link: https://project-finance-tracker-fgid.onrender.com
 
