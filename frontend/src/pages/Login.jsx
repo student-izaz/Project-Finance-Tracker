@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 import { toast } from "react-toastify";
 
-const Login = () => {
+const Login = ({onLogin}) => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -38,6 +38,7 @@ const Login = () => {
         // Example: save token and redirect
         localStorage.setItem("token", data.token);
         toast.success("Login successful!");
+        onLogin();
         navigate("/dashboard");
       } else {
         console.error("Login failed:", data.message || "Unknown error");
