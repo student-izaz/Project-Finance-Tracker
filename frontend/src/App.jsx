@@ -13,11 +13,9 @@ import { useLocation } from "react-router-dom";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-   // Check if token exists on initial render
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // convert to boolean
-    // console.log(isLoggedIn)
+    setIsLoggedIn(!!token);
   }, []);
 
   const handleLogin = () => setIsLoggedIn(true);

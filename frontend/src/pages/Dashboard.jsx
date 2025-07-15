@@ -28,6 +28,10 @@ export default function Dashboard() {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
+    if (data.error === "Invalid or expired token") {
+      localStorage.removeItem("token");
+      window.location.href = "/login"; // or use navigate("/login") if using react-router
+    }
     setExpenses(data);
   };
 
